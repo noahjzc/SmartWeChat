@@ -20,9 +20,23 @@ namespace WeChatApiSDK.Core
             _accessTokenManager = sAccessTokenManager;
         }
 
+        /// <summary>
+        /// 获取微信服务器IP
+        /// </summary>
+        /// <returns></returns>
         public async Task<GetWeChatServerIPResponse> GetWeChatServerIP()
         {
             return await _request.GetAsJsonAsync<GetWeChatServerIPResponse>($"/cgi-bin/getcallbackip?access_token={await _accessTokenManager.GetTokenAsync()}");
+        }
+
+        /// <summary>
+        /// 网络检测
+        /// </summary>
+        /// <param name="reqMsg"></param>
+        /// <returns></returns>
+        public async Task<NetCheckResponse> NetCheck(NetCheckRequest reqMsg)
+        {
+            return await _request.PostAsJsonAsync<NetCheckRequest, NetCheckResponse>($"/cgi-bin/callback/check?access_token={await _accessTokenManager.GetTokenAsync()}", reqMsg);
         }
     }
 }
