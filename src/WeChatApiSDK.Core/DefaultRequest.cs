@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using WeChatApiSDK.Core.Configuration;
+using WeChatApiSDK.Core.DTO;
 using WeChatApiSDK.Core.Utility;
 
 namespace WeChatApiSDK.Core
@@ -22,14 +23,23 @@ namespace WeChatApiSDK.Core
             _logger = logger;
         }
 
-        public async Task<TResponse> PostAsJsonAsync<TRequest, TResponse>(string url, TRequest reqMsg)
+        public async Task<TResponse> PostAsJsonAsync<TRequest, TResponse>(string url, TRequest reqMsg) where TResponse : ResponseBase where TRequest : IRequestModel
         {
+            if (!reqMsg.Validate())
+            {
+                return (new ResponseBase
+                {
+                    ErrorCode = "-0001",
+                    ErrorMessage = reqMsg.ErrorMessages
+                }) as TResponse;
+            }
+
             var client = new HttpClient();
 
             try
             {
                 client.BaseAddress = new Uri(_host);
-                StringContent content = new StringContent(JsonConvert.SerializeObject(reqMsg), Encoding.UTF8);
+                var content = new StringContent(JsonConvert.SerializeObject(reqMsg), Encoding.UTF8);
                 var resp = await client.PostAsync(url, content);
                 string responseString = await resp.Content.ReadAsStringAsync();
 
@@ -51,7 +61,7 @@ namespace WeChatApiSDK.Core
             }
         }
 
-        public async Task<TResponse> GetAsJsonAsync<TResponse>(string url)
+        public async Task<TResponse> GetAsJsonAsync<TResponse>(string url) where TResponse : ResponseBase
         {
             try
             {

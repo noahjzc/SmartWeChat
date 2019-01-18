@@ -10,7 +10,7 @@
 
         public string ReceiveToken { get; set; }
 
-        public ReceiveMessageMode ReceiveMessageMode { get; set; }
+        public ReceiveMessageMode? ReceiveMessageMode { get; set; }
 
         public string AESKey { get; set; }
     }

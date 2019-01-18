@@ -2,7 +2,7 @@
 
 namespace WeChatApiSDK.Core.DTO.Tools
 {
-    public class NetCheckRequest
+    public class NetCheckRequest : IRequestModel
     {
         [JsonProperty("action")]
         public string Action { get; set; }
@@ -49,6 +49,11 @@ namespace WeChatApiSDK.Core.DTO.Tools
             /// 根据ip来选择运营商
             /// </summary>
             public const string DEFAULT = "DEFAULT";
+        }
+
+        public override bool Validate()
+        {
+            return true;
         }
     }
 }

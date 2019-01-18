@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using WeChatApiSDK.Core.Configuration;
 using WeChatApiSDK.Core.DTO.Tools;
 
 namespace WeChatApiSDK.Core
@@ -9,14 +8,12 @@ namespace WeChatApiSDK.Core
     {
         private readonly ILogger<ToolApi> _logger;
         private readonly DefaultRequest _request;
-        private readonly WeChatConfig _config;
         private readonly AccessTokenManager _accessTokenManager;
 
-        public ToolApi(ILogger<ToolApi> sLogger, DefaultRequest sRequest, WeChatConfig sConfig, AccessTokenManager sAccessTokenManager)
+        public ToolApi(ILogger<ToolApi> sLogger, DefaultRequest sRequest, AccessTokenManager sAccessTokenManager)
         {
             _logger = sLogger;
             _request = sRequest;
-            _config = sConfig;
             _accessTokenManager = sAccessTokenManager;
         }
 
@@ -26,7 +23,9 @@ namespace WeChatApiSDK.Core
         /// <returns></returns>
         public async Task<GetWeChatServerIPResponse> GetWeChatServerIP()
         {
-            return await _request.GetAsJsonAsync<GetWeChatServerIPResponse>($"/cgi-bin/getcallbackip?access_token={await _accessTokenManager.GetTokenAsync()}");
+            string token = await _accessTokenManager.GetTokenAsync();
+            _logger.LogDebug($"GetWeChatServerIP-Token:{token}");
+            return await _request.GetAsJsonAsync<GetWeChatServerIPResponse>($"/cgi-bin/getcallbackip?access_token={token}");
         }
 
         /// <summary>
@@ -36,7 +35,9 @@ namespace WeChatApiSDK.Core
         /// <returns></returns>
         public async Task<NetCheckResponse> NetCheck(NetCheckRequest reqMsg)
         {
-            return await _request.PostAsJsonAsync<NetCheckRequest, NetCheckResponse>($"/cgi-bin/callback/check?access_token={await _accessTokenManager.GetTokenAsync()}", reqMsg);
+            string token = await _accessTokenManager.GetTokenAsync();
+            _logger.LogDebug($"NetCheck-Token:{token}");
+            return await _request.PostAsJsonAsync<NetCheckRequest, NetCheckResponse>($"/cgi-bin/callback/check?access_token={token}", reqMsg);
         }
     }
 }
