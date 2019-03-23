@@ -1,1 +1,3 @@
-# WeChatApiSDK.Core
+# SmartWeChat
+
+
