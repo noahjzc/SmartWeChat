@@ -5,7 +5,7 @@ using SmartWeChat.DTO.Tools;
 
 namespace SmartWeChat.Core
 {
-    public class ToolApi : IPlugin
+    public class ToolApi : IModule
     {
         private readonly ILogger<ToolApi> _logger;
         private readonly DefaultRequest _request;

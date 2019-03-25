@@ -1,6 +1,6 @@
 ﻿namespace SmartWeChat.Core.Abstractions
 {
-    public interface IPlugin
+    public interface IModule
     {
         
     }

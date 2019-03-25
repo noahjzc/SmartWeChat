@@ -2,7 +2,7 @@
 
 namespace SmartWeChat.Core
 {
-    public class MenuApi : IPlugin
+    public class MenuApi : IModule
     {
 
     }

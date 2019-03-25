@@ -6,10 +6,9 @@ namespace SmartWeChat.Configuration
 {
    public class MessageConfig
     {
-
         public string ReceiveToken { get; set; }
 
-        public ReceiveMessageMode? ReceiveMessageMode { get; set; }
+        public ReceiveMessageMode ReceiveMessageMode { get; set; } = ReceiveMessageMode.Clear;
 
         public string AESKey { get; set; }
     }

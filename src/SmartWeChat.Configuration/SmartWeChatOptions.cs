@@ -12,6 +12,6 @@ namespace SmartWeChat.Configuration
 
         public MessageConfig ReceiveMessageConfig { get; set; }
 
-        public IEnumerable<string> Plugins { get; set; }
+        public IEnumerable<string> Modules { get; set; }
     }
 }

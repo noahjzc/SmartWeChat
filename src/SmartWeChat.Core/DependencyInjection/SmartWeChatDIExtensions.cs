@@ -1,15 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SmartWeChat.Configuration;
+﻿using SmartWeChat.Configuration;
+using System;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
-   public  static class SmartWeChatDIExtensions
+    public static class SmartWeChatDIExtensions
     {
-        public static void AddSmartWeChat(this IServiceCollection services,Func<IServiceProvider,SmartWeChatOptions> setupOptions)
+        public static void AddSmartWeChat(this IServiceCollection services)
         {
+            
+        }
+
+
+        public static void AddSmartWeChat(this IServiceCollection services, SmartWeChatOptions setupOptions)
+        {
+            services.AddSingleton(setupOptions);
+
+
+            foreach (string moduleName in setupOptions.Modules)
+            {
+                
+            }
+
+
         }
     }
 }

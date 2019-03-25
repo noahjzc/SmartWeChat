@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SmartWeChat.Core.DTO.Menu;
+using SmartWeChat.DTO.Menu;
 using Xunit;
 
 namespace SmartWeChat.Testing.Menu
