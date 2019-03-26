@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace SmartWeChat.DTO.Message.Response
+namespace SmartWeChat.DTO.Message
 {
     public abstract class ReplyMessageModelBase : MessageBase
     {

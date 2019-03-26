@@ -54,7 +54,7 @@ namespace SmartWeChat.Core
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"DefaultRequest:PostAsync:{url} Error");
-                throw new WeChatException(ex);
+                throw new SmartWeChatException(ex);
             }
             finally
             {
@@ -76,7 +76,7 @@ namespace SmartWeChat.Core
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"DefaultRequest:GetAsync:{url} Error");
-                throw new WeChatException(ex);
+                throw new SmartWeChatException(ex);
             }
         }
     }

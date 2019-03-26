@@ -10,8 +10,12 @@ namespace SmartWeChat.Configuration
 
         public string AppSecret { get; set; }
 
-        public MessageConfig ReceiveMessageConfig { get; set; }
-
         public IEnumerable<string> Modules { get; set; }
+
+        public string ReceiveToken { get; set; }
+
+        public ReceiveMessageMode ReceiveMessageMode { get; set; } = ReceiveMessageMode.Clear;
+
+        public string AESKey { get; set; }
     }
 }

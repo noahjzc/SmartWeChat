@@ -30,8 +30,23 @@ namespace SmartWeChat.Utility.Encrypt
 
         public WXBizMsgCrypt(SmartWeChatOptions smartWeChatOptions)
         {
-            Token = smartWeChatOptions.ReceiveMessageConfig.ReceiveToken;
-            EncodingAESKey = smartWeChatOptions.ReceiveMessageConfig.AESKey;
+            if (string.IsNullOrEmpty( smartWeChatOptions.AppId))
+            {
+                throw new SmartWeChatException("AppId Not Found");
+            }
+
+            if (string.IsNullOrEmpty(smartWeChatOptions.AESKey))
+            {
+                throw new SmartWeChatException("AESKey Not Found");
+            }
+
+            if (string.IsNullOrEmpty(smartWeChatOptions.ReceiveToken))
+            {
+                throw new SmartWeChatException("Token Not Found");
+            }
+
+            Token = smartWeChatOptions.ReceiveToken;
+            EncodingAESKey = smartWeChatOptions.AESKey;
             AppId = smartWeChatOptions.AppId;
         }
 
