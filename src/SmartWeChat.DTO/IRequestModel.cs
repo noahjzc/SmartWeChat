@@ -1,20 +1,12 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
+﻿using SmartWeChat.Utility;
 
 namespace SmartWeChat.DTO
 {
-    public abstract class IRequestModel
+    public class IRequestModel
     {
-        private ValidationResult _validationResult;
-
-        public abstract bool Validate();
-
-        protected bool Validate<T>(T validator) where T : IValidator
+        public override string ToString()
         {
-            _validationResult = validator.Validate(this);
-            return _validationResult.IsValid;
+            return this.JsonSerialize();
         }
-
-        public string ErrorMessages => _validationResult == null ? string.Empty : _validationResult.ToString("|");
     }
 }

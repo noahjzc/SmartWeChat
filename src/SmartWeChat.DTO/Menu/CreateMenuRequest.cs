@@ -1,7 +1,5 @@
-﻿using FluentValidation;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartWeChat.DTO.Menu
 {
@@ -71,11 +69,6 @@ namespace SmartWeChat.DTO.Menu
             [JsonProperty("pagepath")]
             public string PagePath { get; set; }
         }
-
-        public override bool Validate()
-        {
-            return base.Validate(new CreateMenuRequestValidator());
-        }
     }
 
     /// <summary>
@@ -138,61 +131,5 @@ namespace SmartWeChat.DTO.Menu
         /// 跳转图文消息URL用户点击view_limited类型按钮后，微信客户端将打开开发者在按钮中填写的永久素材id对应的图文消息URL，永久素材类型只支持图文消息。请注意：永久素材id必须是在“素材管理/新增永久素材”接口上传后获得的合法id。
         /// </summary>
         public const string ViewLimited = "view_limited";
-    }
-
-
-    internal class CreateMenuRequestValidator : AbstractValidator<CreateMenuRequest>
-    {
-        public CreateMenuRequestValidator()
-        {
-            RuleFor(x => x.Button.Count()).InclusiveBetween(1, 3);
-            RuleForEach(x => x.Button).SetValidator(new RootButtonItemValidator());
-        }
-    }
-
-    internal class RootButtonItemValidator : AbstractValidator<CreateMenuRequest.RootButtonItem>
-    {
-        public RootButtonItemValidator()
-        {
-            Include(new ButtonItemValidator());
-
-            When(x => x.SubButton != null, () =>
-            {
-                RuleFor(x => x.SubButton.Count()).InclusiveBetween(1, 5);
-                RuleForEach(x => x.SubButton).SetValidator(new ButtonItemValidator());
-            });
-        }
-    }
-
-    internal class ButtonItemValidator : AbstractValidator<CreateMenuRequest.ButtonItem>
-    {
-        public ButtonItemValidator()
-        {
-            // RuleFor(x => x.Type).NotNull().NotEmpty().WithMessage("按钮类型不能为空");
-            RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage(x => "按钮名称不能为空");
-
-            When(x => x.Type == MenuTypeEnum.Click, () =>
-            {
-                RuleFor(x => x.Key).MaximumLength(128).NotEmpty().NotNull().WithMessage(x => "按钮类型为Click时，Key不能为空");
-            });
-
-            When(x => x.Type == MenuTypeEnum.View, () =>
-            {
-                RuleFor(x => x.Url).NotNull().NotEmpty().MaximumLength(1024).WithMessage(x => "按钮类型为View时，Url不能为空，且长度不大于1024");
-            });
-
-            When(x => x.Type == MenuTypeEnum.MiniProgram, () =>
-            {
-                RuleFor(x => x.Url).NotNull().NotEmpty().MaximumLength(1024).WithMessage(x => "按钮类型为MiniProgram时，Url不能为空，且长度不大于1024");
-                RuleFor(x => x.AppId).NotNull().NotEmpty().WithMessage(x => "按钮类型为MiniProgram时，AppId不能为空");
-                RuleFor(x => x.PagePath).NotNull().NotEmpty().WithMessage(x => "按钮类型为MiniProgram时，PagePath不能为空");
-            });
-
-            When(x => (x.Type == MenuTypeEnum.MediaId || x.Type == MenuTypeEnum.ViewLimited),
-                () =>
-                {
-                    RuleFor(x => x.MediaId).NotNull().NotEmpty();
-                });
-        }
     }
 }

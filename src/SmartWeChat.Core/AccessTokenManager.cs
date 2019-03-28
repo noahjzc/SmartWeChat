@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 using SmartWeChat.Configuration;
 using SmartWeChat.DTO.AccessToken;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartWeChat.Core
 {
