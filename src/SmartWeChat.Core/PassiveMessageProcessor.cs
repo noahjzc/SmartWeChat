@@ -2,31 +2,31 @@
 using SmartWeChat.Configuration;
 using SmartWeChat.DTO.Message;
 using SmartWeChat.Utility;
-using SmartWeChat.Utility.Encrypt;
+using SmartWeChat.Encrypt;
 using System;
 using System.Text;
 
-namespace SmartWeChat.Core
+namespace SmartWeChat
 {
     public interface ISmartWeChatMessageHandler
     {
         ReplyMessageModelBase Handle(MessageBase message);
     }
 
-    public class MessageHandler
+    public class PassiveMessageProcessor
     {
         private readonly Func<MessageBase, ReplyMessageModelBase> _customHandle;
         private readonly SmartWeChatOptions _options;
-        private readonly ILogger<MessageHandler> _logger;
+        private readonly ILogger<PassiveMessageProcessor> _logger;
 
-        public MessageHandler(SmartWeChatOptions options, Func<MessageBase, ReplyMessageModelBase> handler, ILogger<MessageHandler> sLogger)
+        public PassiveMessageProcessor(SmartWeChatOptions options, Func<MessageBase, ReplyMessageModelBase> handler, ILogger<PassiveMessageProcessor> sLogger)
         {
             _options = options;
             _customHandle = handler;
             _logger = sLogger;
         }
 
-        public MessageHandler(ISmartWeChatMessageHandler _handler, SmartWeChatOptions sOptions, ILogger<MessageHandler> sLogger)
+        public PassiveMessageProcessor(ISmartWeChatMessageHandler _handler, SmartWeChatOptions sOptions, ILogger<PassiveMessageProcessor> sLogger)
         {
             _options = sOptions;
             _logger = sLogger;

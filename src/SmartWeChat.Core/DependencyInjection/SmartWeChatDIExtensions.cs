@@ -5,28 +5,28 @@ using SmartWeChat.Core;
 using SmartWeChat.Utility;
 using System;
 using System.IO;
+using SmartWeChat;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class SmartWeChatDIExtensions
     {
-        private const string DEFAULT_CONFIG_PATH = "SmartWeChat.conf.json";
 
-        public static void AddSmartWeChat(this IServiceCollection services, string configPath = DEFAULT_CONFIG_PATH)
+        public static void AddSmartWeChat(this IServiceCollection services, string configPath = "")
         {
             // options
-            var options = LoadOptions();
-            services.AddSingleton(options);
+            //var options = LoadOptions();
+            //services.AddSingleton(options);
             // http client
-            AddHttpClient(services, options);
+            //AddHttpClient(services, options);
         }
 
 
         public static void AddSmartWeChat(this IServiceCollection services, SmartWeChatOptions setupOptions)
         {
             // options
-            services.AddSingleton(CheckOptions(setupOptions));
+            //services.AddSingleton(CheckOptions(setupOptions));
             // http client
             AddHttpClient(services, setupOptions);
 
@@ -36,7 +36,7 @@ namespace Microsoft.Extensions.DependencyInjection
             where THandler : class, ISmartWeChatMessageHandler
         {
             services.AddSingleton(handler);
-            services.AddSingleton<MessageHandler>();
+            services.AddSingleton<PassiveMessageProcessor>();
         }
 
         public static void UseMessageHandle(this IApplicationBuilder app, string path = "/wechat/receive")
@@ -56,7 +56,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 builder.Run(async context =>
                 {
-                    var messageHandler = app.ApplicationServices.GetRequiredService<MessageHandler>();
+                    var messageHandler = app.ApplicationServices.GetRequiredService<PassiveMessageProcessor>();
                     if (context.Request.Method.ToUpper() == "GET")
                     {
                         string signature = context.Request.Query["signature"];
@@ -97,43 +97,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddHttpClient("SmartWeChat", client => { client.BaseAddress = new Uri(setupOptions.Host); });
         }
 
-        private static SmartWeChatOptions LoadOptions(string configPath = DEFAULT_CONFIG_PATH)
-        {
-            if (!File.Exists(configPath))
-            {
-                throw new SmartWeChatException("config file not found");
-            }
-
-            try
-            {
-                string jsonString = File.ReadAllText(configPath);
-                var options = jsonString.JsonDeserialize<SmartWeChatOptions>();
-                return CheckOptions(options);
-            }
-            catch (Exception e)
-            {
-                throw new SmartWeChatException("config file load failure", e);
-            }
-        }
-
-        private static SmartWeChatOptions CheckOptions(SmartWeChatOptions options)
-        {
-            if (string.IsNullOrEmpty(options.Host))
-            {
-                options.Host = "api.weixin.qq.com";
-            }
-
-            if (string.IsNullOrEmpty(options.AppId))
-            {
-                throw new SmartWeChatException("app id not found");
-            }
-
-            if (string.IsNullOrEmpty(options.AppSecret))
-            {
-                throw new SmartWeChatException("app secret not found");
-            }
-
-            return options;
-        }
+       
     }
 }

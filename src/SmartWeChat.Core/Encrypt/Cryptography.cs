@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Net;
 
-namespace SmartWeChat.Utility.Encrypt
+namespace SmartWeChat.Encrypt
 {
     public class Cryptography
     {

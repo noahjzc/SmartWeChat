@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SmartWeChat.DTO.Menu
 {
-    public class CreateMenuRequest : IRequestModel
+    public class CreateMenuRequest : SWRequest<SWResponse>
     {
         /// <summary>
         /// 一级菜单数组，个数应为1~3个
@@ -68,6 +68,11 @@ namespace SmartWeChat.DTO.Menu
             /// </summary>
             [JsonProperty("pagepath")]
             public string PagePath { get; set; }
+        }
+
+        public override string GetApiUrl()
+        {
+            return "/cgi-bin/menu/create";
         }
     }
 

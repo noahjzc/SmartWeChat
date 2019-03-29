@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmartWeChat.Core\SmartWeChat.Core.csproj" />
+    <ProjectReference Include="..\SmartWeChat.Core\SmartWeChat.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using SmartWeChat.Core.Abstractions;
 using SmartWeChat.DTO;
 using SmartWeChat.Utility;
 using System;
@@ -8,9 +7,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartWeChat.Core
+namespace SmartWeChat
 {
-    public class DefaultRequest : IRequest
+    public class DefaultRequest
     {
         private readonly ILogger<DefaultRequest> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
@@ -21,7 +20,7 @@ namespace SmartWeChat.Core
             _httpClientFactory = sHttpClientFactory;
         }
 
-        public async Task<TResponse> PostAsJsonAsync<TRequest, TResponse>(string url, TRequest reqMsg) where TResponse : ResponseBase where TRequest : IRequestModel
+        public async Task<TResponse> PostAsJsonAsync<TRequest, TResponse>(string url, TRequest reqMsg) where TResponse : SWResponse where TRequest : SWRequest
         {
             using (var client = _httpClientFactory.CreateClient("SmartWeChat"))
             {
@@ -46,7 +45,7 @@ namespace SmartWeChat.Core
             }
         }
 
-        public async Task<TResponse> GetAsJsonAsync<TResponse>(string url) where TResponse : ResponseBase
+        public async Task<TResponse> GetAsJsonAsync<TResponse>(string url) where TResponse : SWResponse
         {
             using (var client = _httpClientFactory.CreateClient("SmartWeChat"))
             {

@@ -4,8 +4,9 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
+using SmartWeChat.Utility;
 
-namespace SmartWeChat.Utility.Encrypt
+namespace SmartWeChat.Encrypt
 {
     public class WXBizMsgCrypt
     {

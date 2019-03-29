@@ -2,7 +2,7 @@
 
 namespace SmartWeChat.DTO
 {
-    public class ResponseBase
+    public class SWResponse
     {
         [JsonProperty("errcode")]
         public string ErrorCode { get; set; }

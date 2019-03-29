@@ -9,9 +9,9 @@ namespace SmartWeChat.Core
     {
         private readonly ILogger<ToolApi> _logger;
         private readonly DefaultRequest _request;
-        private readonly AccessTokenManager _accessTokenManager;
+        private readonly TokenManager _accessTokenManager;
 
-        public ToolApi(ILogger<ToolApi> sLogger, DefaultRequest sRequest, AccessTokenManager sAccessTokenManager)
+        public ToolApi(ILogger<ToolApi> sLogger, DefaultRequest sRequest, TokenManager sAccessTokenManager)
         {
             _logger = sLogger;
             _request = sRequest;

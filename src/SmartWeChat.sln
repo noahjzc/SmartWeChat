@@ -7,15 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{8968E7C9-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DC72D4FA-7B61-4EEB-9573-B21CA6252DE5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartWeChat.Core", "SmartWeChat.Core\SmartWeChat.Core.csproj", "{FAFA9CD8-9B0E-4BBB-907B-509EDD6E400D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartWeChat", "SmartWeChat.Core\SmartWeChat.csproj", "{FAFA9CD8-9B0E-4BBB-907B-509EDD6E400D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartWeChat.Testing", "SmartWeChat.Testing\SmartWeChat.Testing.csproj", "{6D8BF77E-FE7C-4426-AE09-C23507437646}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartWeChat.DTO", "SmartWeChat.DTO\SmartWeChat.DTO.csproj", "{C302700E-E328-4067-8CE4-E4F5FFA034B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartWeChat.DTO", "SmartWeChat.DTO\SmartWeChat.DTO.csproj", "{C302700E-E328-4067-8CE4-E4F5FFA034B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartWeChat.Utility", "SmartWeChat.Utility\SmartWeChat.Utility.csproj", "{43DA2AA0-B38B-482C-B85C-56111DC0BEA1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartWeChat.Configuration", "SmartWeChat.Configuration\SmartWeChat.Configuration.csproj", "{5896493A-C322-4618-86DE-D4C89D0A0909}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartWeChat.Utility", "SmartWeChat.Utility\SmartWeChat.Utility.csproj", "{43DA2AA0-B38B-482C-B85C-56111DC0BEA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +37,6 @@ Global
 		{43DA2AA0-B38B-482C-B85C-56111DC0BEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43DA2AA0-B38B-482C-B85C-56111DC0BEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43DA2AA0-B38B-482C-B85C-56111DC0BEA1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5896493A-C322-4618-86DE-D4C89D0A0909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5896493A-C322-4618-86DE-D4C89D0A0909}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5896493A-C322-4618-86DE-D4C89D0A0909}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5896493A-C322-4618-86DE-D4C89D0A0909}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,7 +46,6 @@ Global
 		{6D8BF77E-FE7C-4426-AE09-C23507437646} = {DC72D4FA-7B61-4EEB-9573-B21CA6252DE5}
 		{C302700E-E328-4067-8CE4-E4F5FFA034B3} = {8968E7C9-ACC5-4D2B-A99C-6CFFA4573E0A}
 		{43DA2AA0-B38B-482C-B85C-56111DC0BEA1} = {8968E7C9-ACC5-4D2B-A99C-6CFFA4573E0A}
-		{5896493A-C322-4618-86DE-D4C89D0A0909} = {8968E7C9-ACC5-4D2B-A99C-6CFFA4573E0A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3559C624-4457-4396-8F22-80654FBF1C6A}

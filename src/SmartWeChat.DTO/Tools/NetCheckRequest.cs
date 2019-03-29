@@ -2,7 +2,7 @@
 
 namespace SmartWeChat.DTO.Tools
 {
-    public class NetCheckRequest : IRequestModel
+    public class NetCheckRequest : SWRequest
     {
         [JsonProperty("action")]
         public string Action { get; set; }
