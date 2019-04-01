@@ -61,8 +61,8 @@ namespace SmartWeChat
 
             if (Options.UsePassiveMessageProcessor)
             {
-                WxBizMsgCrypt=new WXBizMsgCrypt(Options);
-                PassiveMessageProcessor=new PassiveMessageProcessor();
+                WxBizMsgCrypt = new WXBizMsgCrypt(Options);
+                PassiveMessageProcessor = new PassiveMessageProcessor(Options, LoggerFactory);
             }
         }
 

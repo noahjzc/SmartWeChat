@@ -2,7 +2,7 @@
 
 namespace SmartWeChat.DTO.Tools
 {
-    public class NetCheckRequest : SWRequest
+    public class NetCheckRequest : SWRequest<NetCheckResponse>
     {
         [JsonProperty("action")]
         public string Action { get; set; }
@@ -51,9 +51,9 @@ namespace SmartWeChat.DTO.Tools
             public const string DEFAULT = "DEFAULT";
         }
 
-        public override bool Validate()
+        public override string GetApiUrl()
         {
-            return true;
+            return "/cgi-bin/callback/check";
         }
     }
 }

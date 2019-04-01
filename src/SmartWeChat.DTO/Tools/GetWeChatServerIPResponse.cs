@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SmartWeChat.DTO.Tools
 {
-    public class GetWeChatServerIPResponse : ResponseBase
+    public class GetWeChatServerIPResponse : SWResponse
     {
         /// <summary>
         /// IP 地址列表

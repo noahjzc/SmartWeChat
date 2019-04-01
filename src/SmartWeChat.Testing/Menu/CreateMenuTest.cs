@@ -38,9 +38,6 @@ namespace SmartWeChat.Testing.Menu
                 Button = rootButtons
             };
 
-            bool isValid = createMenuRequest.Validate();
-
-            Assert.False(isValid);
         }
     }
 }

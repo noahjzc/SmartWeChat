@@ -1,4 +1,5 @@
-﻿using SmartWeChat.Utility;
+﻿using System.Net.Http;
+using SmartWeChat.Utility;
 
 namespace SmartWeChat.DTO
 {
@@ -6,6 +7,8 @@ namespace SmartWeChat.DTO
     {
 
         public abstract string GetApiUrl();
+
+        public abstract HttpMethod Method();
 
         public string ToJson()
         {

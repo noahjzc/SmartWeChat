@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SmartWeChat.DTO.Tools
 {
-    public class NetCheckResponse : ResponseBase
+    public class NetCheckResponse : SWResponse
     {
         [JsonProperty("dns")]
         public IEnumerable<DnsState> Dns { get; set; }

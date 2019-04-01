@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using SmartWeChat.Configuration;
 using SmartWeChat.DTO.Message;
-using SmartWeChat.Utility;
 using SmartWeChat.Encrypt;
+using SmartWeChat.Utility;
 using System;
 using System.Text;
 
@@ -15,22 +15,24 @@ namespace SmartWeChat
 
     public class PassiveMessageProcessor
     {
-        private readonly Func<MessageBase, ReplyMessageModelBase> _customHandle;
+        private Func<MessageBase, ReplyMessageModelBase> _customHandle { get; set; }
         private readonly SmartWeChatOptions _options;
         private readonly ILogger<PassiveMessageProcessor> _logger;
 
-        public PassiveMessageProcessor(SmartWeChatOptions options, Func<MessageBase, ReplyMessageModelBase> handler, ILogger<PassiveMessageProcessor> sLogger)
+        public PassiveMessageProcessor(SmartWeChatOptions options, ILoggerFactory loggerFactory)
         {
             _options = options;
-            _customHandle = handler;
-            _logger = sLogger;
+            _logger = loggerFactory.CreateLogger<PassiveMessageProcessor>();
         }
 
-        public PassiveMessageProcessor(ISmartWeChatMessageHandler _handler, SmartWeChatOptions sOptions, ILogger<PassiveMessageProcessor> sLogger)
+        public void BindHandler(ISmartWeChatMessageHandler handler)
         {
-            _options = sOptions;
-            _logger = sLogger;
-            _customHandle = _handler.Handle;
+            _customHandle = handler.Handle;
+        }
+
+        public void BindHandler(Func<MessageBase, ReplyMessageModelBase> handler)
+        {
+            _customHandle = handler;
         }
 
         public string CheckServer(string signature, string timestamp, string nonce, string echostr)
@@ -80,6 +82,10 @@ namespace SmartWeChat
             var message = Parse(requestBody);
             try
             {
+                if (_customHandle == null)
+                {
+                    return "";
+                }
                 string result = _customHandle(message).ToString();
 
                 if (needEncrypt)
@@ -104,7 +110,6 @@ namespace SmartWeChat
                 return "failure";
             }
         }
-
 
         private MessageBase Parse(string xmlString)
         {

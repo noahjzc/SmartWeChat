@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using SmartWeChat.Configuration;
-using SmartWeChat.Core;
 using SmartWeChat.Utility;
 using System;
 using System.IO;

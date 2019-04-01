@@ -2,7 +2,7 @@
 
 namespace SmartWeChat.DTO.AccessToken
 {
-    public class AccessTokenResponse : ResponseBase
+    public class AccessTokenResponse : SWResponse
     {
         /// <summary>
         /// Token
