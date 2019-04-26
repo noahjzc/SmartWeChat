@@ -1,10 +1,11 @@
-﻿using SmartWeChat.Configuration;
+﻿using SmartWeChat.Encrypt;
+using SmartWeChat.Configuration;
+using SmartWeChat.Utility;
 using System;
 using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
-using SmartWeChat.Utility;
 
 namespace SmartWeChat.Encrypt
 {
@@ -31,7 +32,7 @@ namespace SmartWeChat.Encrypt
 
         public WXBizMsgCrypt(SmartWeChatOptions smartWeChatOptions)
         {
-            if (string.IsNullOrEmpty( smartWeChatOptions.AppId))
+            if (string.IsNullOrEmpty(smartWeChatOptions.AppId))
             {
                 throw new SmartWeChatException("AppId Not Found");
             }

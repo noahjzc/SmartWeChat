@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace SmartWeChat.DTO.Tools
 {
@@ -54,6 +55,11 @@ namespace SmartWeChat.DTO.Tools
         public override string GetApiUrl()
         {
             return "/cgi-bin/callback/check";
+        }
+
+        public override HttpMethod Method()
+        {
+            return HttpMethod.Post;
         }
     }
 }

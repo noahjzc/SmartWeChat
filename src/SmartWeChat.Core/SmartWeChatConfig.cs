@@ -9,40 +9,25 @@ using System.Net.Http;
 
 namespace SmartWeChat
 {
-    public class SmartWeChatContainer
+    public class SmartWeChatConfig
     {
-        public static SmartWeChatContainer GetInstance()
-        {
-            return GetInstance("");
-        }
+        internal const string DEFAULT_CONFIG_PATH = "SmartWeChat.conf.json";
 
-        public static SmartWeChatContainer GetInstance(string configPath)
-        {
-            return new SmartWeChatContainer(configPath);
-        }
-
-        public static SmartWeChatContainer GetInstance(SmartWeChatOptions options, ILoggerFactory loggerFactory = null)
-        {
-            return new SmartWeChatContainer(options, loggerFactory);
-        }
-
-        const string DEFAULT_CONFIG_PATH = "SmartWeChat.conf.json";
-
-        public ILoggerFactory LoggerFactory { get; private set; } = NullLoggerFactory.Instance;
-        public IHttpClientFactory HttpClientFactory { get; private set; }
+        internal ILoggerFactory LoggerFactory { get; private set; } = NullLoggerFactory.Instance;
+        internal IHttpClientFactory HttpClientFactory { get; private set; }
         public SmartWeChatOptions Options { get; private set; }
-        public DefaultRequest DefaultRequest { get; private set; }
-        public TokenManager TokenManager { get; private set; }
-        public PassiveMessageProcessor PassiveMessageProcessor { get; private set; }
-        public WXBizMsgCrypt WxBizMsgCrypt { get; private set; }
+        internal DefaultRequest DefaultRequest { get; private set; }
+        internal TokenManager TokenManager { get; private set; }
+        internal PassiveMessageProcessor PassiveMessageProcessor { get; private set; }
+        internal WXBizMsgCrypt WxBizMsgCrypt { get; private set; }
 
-        public SmartWeChatContainer(string configPath = DEFAULT_CONFIG_PATH)
+        public SmartWeChatConfig(string configPath)
         {
             Options = LoadOptions(configPath);
             InitConfig();
         }
 
-        public SmartWeChatContainer(SmartWeChatOptions options, ILoggerFactory loggerFactory = null)
+        public SmartWeChatConfig(SmartWeChatOptions options, ILoggerFactory loggerFactory = null)
         {
             if (loggerFactory != null)
             {
@@ -51,6 +36,11 @@ namespace SmartWeChat
 
             Options = CheckOptions(options);
             InitConfig();
+        }
+
+        public void UseLog(ILoggerFactory loggerFactory)
+        {
+            LoggerFactory = loggerFactory;
         }
 
         private void InitConfig()
@@ -89,7 +79,7 @@ namespace SmartWeChat
         {
             if (string.IsNullOrEmpty(options.Host))
             {
-                options.Host = "api.weixin.qq.com";
+                options.Host = "https://api.weixin.qq.com";
             }
 
             if (string.IsNullOrEmpty(options.AppId))

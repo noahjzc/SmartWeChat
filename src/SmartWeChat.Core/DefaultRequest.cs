@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SmartWeChat
@@ -21,22 +22,34 @@ namespace SmartWeChat
             _httpClientFactory = sHttpClientFactory;
         }
 
-        public async Task<TResponse> Execute<TResponse>(SWRequest<TResponse> request) where TResponse : SWResponse
+        public async Task<TResponse> Execute<TResponse>(SWRequest<TResponse> request, string token = "") where TResponse : SWResponse
         {
             using (var client = _httpClientFactory.CreateClient())
             {
                 try
                 {
+                    string url = request.GetApiUrl() + "?";
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        url += $"access_token={token}&";
+                    }
+
+                    string responseJson;
                     if (request.Method() == HttpMethod.Get)
                     {
-                        string url = $"{request.GetApiUrl()}?{GenerateQueryString(request)}";
-                        string resp = await client.GetStringAsync(url);
-                        return resp.JsonDeserialize<TResponse>();
+                        url += GenerateQueryString(request);
+                        //string url = $"{request.GetApiUrl()}?{GenerateQueryString(request)}";
+                        responseJson = await client.GetStringAsync(url);
+
                     }
                     else
                     {
-                        string url = $"{request.GetApiUrl()}?access_token";
+                        var content = new StringContent(request.ToJson(), Encoding.UTF8);
+                        var resp = await client.PostAsync(url, content);
+                        responseJson = await resp.Content.ReadAsStringAsync();
                     }
+
+                    return responseJson.JsonDeserialize<TResponse>();
                 }
                 catch (Exception ex)
                 {

@@ -16,4 +16,10 @@
     <ProjectReference Include="..\SmartWeChat.Core\SmartWeChat.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SmartWeChat.conf.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

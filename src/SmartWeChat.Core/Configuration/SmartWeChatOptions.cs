@@ -9,9 +9,7 @@ namespace SmartWeChat.Configuration
         public string AppId { get; set; }
 
         public string AppSecret { get; set; }
-
-        public IEnumerable<string> Modules { get; set; }
-
+        
         public bool UsePassiveMessageProcessor { get; set; } = false;
 
         public string ReceiveToken { get; set; }

@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using SmartWeChat;
 using SmartWeChat.Configuration;
 using SmartWeChat.Utility;
 using System;
-using System.IO;
-using SmartWeChat;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -12,30 +13,15 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class SmartWeChatDIExtensions
     {
 
-        public static void AddSmartWeChat(this IServiceCollection services, string configPath = "")
+        public static void AddSmartWeChat(this IServiceCollection services, string configPath = SmartWeChatConfig.DEFAULT_CONFIG_PATH, ILoggerFactory loggerFactory = null)
         {
-            // options
-            //var options = LoadOptions();
-            //services.AddSingleton(options);
-            // http client
-            //AddHttpClient(services, options);
+            services.AddSingleton(new SmartWeChatRequest(configPath, loggerFactory));
         }
 
 
-        public static void AddSmartWeChat(this IServiceCollection services, SmartWeChatOptions setupOptions)
+        public static void AddSmartWeChat(this IServiceCollection services, SmartWeChatOptions setupOptions, ILoggerFactory loggerFactory = null)
         {
-            // options
-            //services.AddSingleton(CheckOptions(setupOptions));
-            // http client
-            AddHttpClient(services, setupOptions);
-
-        }
-
-        public static void AddSmartWeChatMessageHandler<THandler>(this IServiceCollection services, THandler handler)
-            where THandler : class, ISmartWeChatMessageHandler
-        {
-            services.AddSingleton(handler);
-            services.AddSingleton<PassiveMessageProcessor>();
+            services.AddSingleton(new SmartWeChatRequest(setupOptions, loggerFactory));
         }
 
         public static void UseMessageHandle(this IApplicationBuilder app, string path = "/wechat/receive")
@@ -96,6 +82,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddHttpClient("SmartWeChat", client => { client.BaseAddress = new Uri(setupOptions.Host); });
         }
 
-       
+
     }
 }
